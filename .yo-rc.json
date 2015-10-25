@@ -1,0 +1,29 @@
+{
+  "generator-angularjs-library": {
+    "props": {
+      "author": {
+        "name": "Francisco J. Piedrahita",
+        "email": "franciscojpiedrahita@gmail.com"
+      },
+      "libraryName": {
+        "original": "jackal-mqtt",
+        "camelized": "jackalMqtt",
+        "dasherized": "jackal-mqtt",
+        "slugified": "jackal-mqtt",
+        "parts": [
+          "jackal",
+          "mqtt"
+        ]
+      },
+      "includeModuleDirectives": false,
+      "includeModuleFilters": false,
+      "includeModuleServices": true,
+      "includeAngularModuleResource": false,
+      "includeAngularModuleCookies": false,
+      "includeAngularModuleSanitize": false,
+      "librarySrcDirectory": "src/jackal-mqtt",
+      "libraryUnitTestDirectory": "test/unit/jackal-mqtt",
+      "libraryUnitE2eDirectory": "test/e2e/jackal-mqtt"
+    }
+  }
+}
