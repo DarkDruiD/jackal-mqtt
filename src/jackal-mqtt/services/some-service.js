@@ -1,13 +1,12 @@
 angular
     .module('jackalMqtt.services')
-    .service('mqttService', MqttService);
-    .service('dataService', DataService);
+    .factory('mqttService', MqttService);
+    .factory('dataService', DataService);
 
 
 DataService.$inject = [];
 
 function DataService () {
-
     var service = {
         data: {  }
     };
@@ -21,16 +20,6 @@ MqttService.$inject = ['$rootScope', 'dataService'];
 function MqttService($rootScope, dataService) {
     var mqttc;
     var callback = {  };
-
-    var service = {
-        connect: connect,
-        disconnect: disconnect,
-
-        subscribe: subscribe,
-        unsubscribe: unsubscribe,
-
-        publish: publish
-    };
 
     function onConnect() {
         $rootScope.$broadcast('connected');
@@ -109,4 +98,22 @@ function MqttService($rootScope, dataService) {
 
         mqttc.send(mqttMessage);
     };
+
+    return  = {
+        connect: connect,
+        disconnect: disconnect,
+
+        subscribe: subscribe,
+        unsubscribe: unsubscribe,
+
+        publish: publish
+
+        /** TEST_CODE **/
+        ,_onConnect: onConnect
+        ,_onConnectionLost: onConnectionLost
+        ,_onMessageArrived: onMessageArrived
+        /** TEST_CODE **/
+    };
+
+;
 }
