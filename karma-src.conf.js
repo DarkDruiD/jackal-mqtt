@@ -25,6 +25,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower/paho-mqtt-js/mqttws31.js',
       'bower/angular/angular.js',
       'bower/angular-mocks/angular-mocks.js',
       'src/**/*.module.js',
