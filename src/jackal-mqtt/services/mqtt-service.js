@@ -50,9 +50,6 @@ function MqttService($rootScope, dataService){
         }
 
         reg += "$";
-
-        console.log("My Regexp: " + reg);
-
         reg = new RegExp(reg);
 
         if(reg.test(destination))
