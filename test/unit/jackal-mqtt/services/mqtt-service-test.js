@@ -57,12 +57,80 @@ describe('mqttService', function() {
         });
 
         describe('onMessageArrived', function() {
-            var tests = {
+            var tests = [
                 {
-                    chanel: [],
-                    destinations: []
+                    chanel: 'myhome/ground/floor/livingroom/temperature',
+
+                    destinations: [
+                        'myhome/ground/floor/livingroom/temperature'
+                    ],
+
+                    fails: [
+                        'a/b/c',
+                        'myhome/data',
+                        'data/myhome'
+                    ]
+                },
+
+                {
+                    chanel: 'myhome/groundfloor/+/temperature',
+
+                    destinations: [
+                        'myhome/groundfloor/myroom/temperature',
+                        'myhome/groundfloor/livingroom/temperature',
+                        'myhome/groundfloor/kitchen/temperature'
+                    ],
+
+                    fails: [
+                        'my/home/groundfloor/data/data/temperature',
+                        'a/b/c',
+                        'data/science'
+                    ]
+                },
+
+                {
+                    chanel: 'myhome/groundfloor/#',
+
+                    destinations: [
+                        'myhome/groundfloor/kitchen/sync',
+                        'myhome/groundfloor/livingroom/light',
+                        'myhome/groundfloor/myroom/sensors/temperature',
+                        'myhome/groundfloor/left/data/livingroom/data/sensor'
+                    ],
+
+                    fails: [
+                         'a/b/c',
+                         'myhome/topfloor/left/kitchen/data',
+                         'myhome/detest/fun'
+                    ]
                 }
-            };
+            ];
+
+            tests.forEach(function(test){
+                for(var ind in test.destinations) {
+                    var dest = test.destinations[ind];
+
+                    var text = (
+                        'Should match the chanel: ' + test.chanel + ' with: ' + dest
+                    );
+
+                    it(text, function(){
+                        mqttService._chanelMatch(test.chanel, dest).should.equal(true);
+                    });
+                };
+
+                for(var ind in test.fails) {
+                    var fail = test.fails[ind];
+
+                    var text = (
+                        'Should not match the chanel: ' + test.chanel + ' with: ' + fail
+                    );
+
+                    it(text, function() {
+                        mqttService._chanelMatch(test.chanel, fail).should.equal(false);
+                    });
+                };
+            });
         });
     });
 });

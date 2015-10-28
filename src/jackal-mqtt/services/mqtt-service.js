@@ -30,25 +30,32 @@ function MqttService($rootScope, dataService){
         delete callbacks[chanel];
     };
 
-    function chanelMatch(chanel, key) {
+    function chanelMatch(chanel, destination) {
         var reg = "^";
-        var levels = key.split("/");
 
-        for (var lvl in levels){
+        destination += "/";
+        var levels = chanel.split("/");
+
+        for (var ind in levels){
+            var lvl = levels[ind];
+
             if(lvl === "+")
-                reg.concat("([a-z]|[0-9])+");
+                reg += "([a-z]|[0-9])+/";
 
             else if(lvl === "#")
-                reg.concat("(([a-z]|[0-9])|/)*");
+                reg += "(([a-z]|[0-9])|/)*";
 
             else
-                reg.concat(lvl.concat("/"));
+                reg += (lvl + "/");
         }
 
-        reg.concat("$");
+        reg += "$";
+
+        console.log("My Regexp: " + reg);
+
         reg = new RegExp(reg);
 
-        if(reg.test(chanel))
+        if(reg.test(destination))
             return true;
 
         return false
