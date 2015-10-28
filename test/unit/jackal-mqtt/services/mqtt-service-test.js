@@ -13,47 +13,56 @@ describe('mqttService', function() {
         dataService = _dataService_;
     }));
 
-    describe('addCallback()', function() {
-        var tests = [
-            {
-                data: ['myhome/ground/floor/livingroom/temperature', 'onTemp', 'temp']
-            },
+    describe('mqttService', function() {
 
-            {
-                data: ['myhome/groundfloor/+/temperature', 'onTemp', 'temp']
-            },
-
-            {
-                data: ['myhome/groundfloor/#', 'onFloorData', 'floor']
-            }
-        ];
-
-        it('MQTT Service ShouldEexist', function() {
-            expect(mqttService).to.be.ok;
+        it('Should Eexist', function() {
+            mqttService.should.be.ok;
         });
 
-        tests.forEach(function(test){
-            var text = (
-                            'Should be the key: ' + test.data[0]
-                            + '. First position of array: ' + test.data[1]
-                            + '. Second position of array: ' + test.data[2]
-            )
+        describe('addCallback()', function() {
+            var tests = [
+                {
+                    data: ['myhome/ground/floor/livingroom/temperature', 'onTemp', 'temp']
+                },
 
-            it(text, function(){
-                var chanel = test.data[0];
-                var callbackName = test.data[1];
-                var dataName = test.data[2];
+                {
+                    data: ['myhome/groundfloor/+/temperature', 'onTemp', 'temp']
+                },
 
-                mqttService._addCallback(chanel, callbackName, dataName);
+                {
+                    data: ['myhome/groundfloor/#', 'onFloorData', 'floor']
+                }
+            ];
 
-                mqttService._callbacks.should.have.property(chanel);
-                mqttService._callbacks[chanel][0].should.equal(callbackName);
-                mqttService._callbacks[chanel][1].should.equal(dataName);
+
+            tests.forEach(function(test){
+                var text = (
+                                'Should be the key: ' + test.data[0]
+                                + '. First position of array: ' + test.data[1]
+                                + '. Second position of array: ' + test.data[2]
+                )
+
+                it(text, function(){
+                    var chanel = test.data[0];
+                    var callbackName = test.data[1];
+                    var dataName = test.data[2];
+
+                    mqttService._addCallback(chanel, callbackName, dataName);
+
+                    mqttService._callbacks.should.have.property(chanel);
+                    mqttService._callbacks[chanel][0].should.equal(callbackName);
+                    mqttService._callbacks[chanel][1].should.equal(dataName);
+                });
             });
         });
-    });
 
-    describe('onMessageArrived', function() {
-
+        describe('onMessageArrived', function() {
+            var tests = {
+                {
+                    chanel: [],
+                    destinations: []
+                }
+            };
+        });
     });
 });
