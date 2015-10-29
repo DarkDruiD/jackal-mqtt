@@ -21,11 +21,6 @@ describe('', function() {
     expect(hasModule('jackalMqtt.config')).to.be.ok;
   });
 
-
-
-
-
-
   it('should load services module', function() {
     expect(hasModule('jackalMqtt.services')).to.be.ok;
   });
