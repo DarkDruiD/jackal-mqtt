@@ -44,9 +44,9 @@ MqttService.$inject = ['$rootScope', 'dataService'];
 
 function MqttService ($rootScope, dataService) {
     var mqttc;
+    var Paho = Paho;
     var callbacks = {  };
 
-    var Paho = Paho;
 
     function addCallback(chanel, callbackName, dataName) {
         callbacks[chanel] = [callbackName, dataName];
@@ -100,21 +100,26 @@ function MqttService ($rootScope, dataService) {
         var payload = message.payloadString;
         var destination = message.destinationName;
 
-        for (var key = 0; key < callbacks.length; key++) {
-            var match = chanelMatch(key, destination);
+        for(var key in callbacks) {
+            if(callbacks.hasOwnProperty(key)) {
 
-            if(match){
-                dataService.data[callbacks[key][1]] = JSON.parse(payload);
-                $rootScope.$broadcast(callbacks[key][0]);
+                var match = chanelMatch(key, destination);
+
+                if(match) {
+                    dataService.data[callbacks[key][1]] = payload;
+                    $rootScope.$broadcast(callbacks[key][0]);
+                }
             }
         }
     }
 
     function connect(host, port, options) {
-        mqttc = new Paho.MQTT.Client(host, Number(port), 'web_client_' + Math.random());
+        mqttc = new Paho.MQTT.Client(host, Number(port), 'web_client_' + Math.round(Math.random() * 1000));
 
         mqttc.onConnectionLost = onConnectionLost;
         mqttc.onMessageArrived = onMessageArrived;
+
+        options['onSuccess'] = onConnect;
 
         mqttc.connect(options);
     }
