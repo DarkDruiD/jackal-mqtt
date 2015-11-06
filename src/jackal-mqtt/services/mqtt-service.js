@@ -42,7 +42,6 @@ function MqttService ($rootScope, dataService) {
 
             if(lvl === '+'){
                 reg = '([a-z]|[0-9])+/';
-
             }else if(lvl === '#'){
                 reg += '(([a-z]|[0-9])|/)*';
 
@@ -139,6 +138,5 @@ function MqttService ($rootScope, dataService) {
         _chanelMatch: chanelMatch,
         _callbacks: callbacks
         /** TEST CODE **/
-
     };
 }
