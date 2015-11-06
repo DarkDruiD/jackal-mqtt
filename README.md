@@ -7,7 +7,7 @@ This is a simple wrapper library of Paho for the sake of use in AngularJs, the i
 ### How to use it
 This library is pretty simple to use you will need to first start your AngularJs app including the JackalMQTT module and connect to the MQTT server like this:
 
-```
+```javascript
 angular.module('myApp', [
     'ngRoute',
     'jackalMqtt',
@@ -29,7 +29,8 @@ angular.module('myApp', [
 ```
 
 after this you can start using this in your controllers, like the following:
-```
+
+```javascript
 .controller('example_view_ctrl', ['$scope', 'mqttService', 'dataService', 
             function($scope, mqttService, dataService){
     $scope.current = 'No Data';
